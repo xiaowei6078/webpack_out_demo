@@ -1,0 +1,30 @@
+{
+  "name": "webpack_demo",
+  "version": "1.0.0",
+  "description": "学习",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaowei6078/webpack_demo.git"
+  },
+  "author": "xiao_wei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaowei6078/webpack_demo/issues"
+  },
+  "homepage": "https://github.com/xiaowei6078/webpack_demo#readme",
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "css-loader": "^0.28.4",
+    "csv-loader": "^2.1.1",
+    "file-loader": "^0.11.2",
+    "style-loader": "^0.18.2",
+    "xml-loader": "^1.2.1"
+  }
+}
