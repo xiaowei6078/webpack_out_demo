@@ -1,17 +1,45 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
     //入口文件
-    entry: './src/js/index.js',
+    entry: {
+        app: './src/js/index.js',
+        print: './src/js/print.js'
+    },
+    //使用source map:追踪到错误和警告在源代码中的原始位置
+    //行数能够正确映射，因为会映射到原始代码中
+    devtool: 'inline-source-map',
+    //告诉开发服务器(dev server)，在哪里查找文件
+    devServer: {
+        contentBase: path.join(__dirname,'dist'),
+        compress: true,
+        port: 9000
+    },
+    plugins: [
+        //清理/dist文件夹
+        new CleanWebpackPlugin(['dist']),
+        //会生成默认的index.html，简化HTML文件的创建
+        new HtmlWebpackPlugin({
+            title: 'Outpt Management'
+        })
+    ],
     //输出
     output: {
         //输出文件名
-        filename: 'bundle.js',
+        filename: '[name].bundle.js',
         //输出路径
         path: path.resolve(__dirname, 'dist')
     },
     module: {
         rules: [
+            //开发辅助调试工具
+            // {
+            //     test: /\.js$/,
+            //     use: ["source-map-loader"],
+            //     enforce: "pre"
+            // },
             //加载css
             {
                 test: /\.css$/,
