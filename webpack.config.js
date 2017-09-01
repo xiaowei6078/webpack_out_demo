@@ -30,7 +30,8 @@ module.exports = {
         //输出文件名
         filename: '[name].bundle.js',
         //输出路径
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        publicPath: '/'
     },
     module: {
         rules: [

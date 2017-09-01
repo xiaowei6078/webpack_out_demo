@@ -65,8 +65,10 @@ npm install --save-dev html-webpack-plugin
         .
         //告诉开发服务器(dev server)，在哪里查找文件
         devServer: {
-            contentBase: './dist'
-        },  
+            contentBase: path.join(__dirname,'dist'),
+            compress: true,
+            port: 9000
+        },
         .
         .
         .
@@ -85,3 +87,64 @@ npm install --save-dev html-webpack-plugin
         .
         .
     }
+
+2.3 使用 webpack-dev-middleware:将webpack处理的文件发送到服务器的包装器
+
+    npm install --save-dev express webpack-dev-middleware
+
+    webpack.config.js
+
+    module.exports = {
+        .
+        .
+        .
+        //告诉开发服务器(dev server)，在哪里查找文件
+        output: {
+            .
+            .
+            //将在我们的服务器脚本中使用，以确保文件的正常运行http://localhost:3000
+            publicPath: '/'
+        },
+        .
+        .
+        .
+    }
+
+    
+    package.json
+    {
+        .
+        .
+        .
+        "scripts": {
+            "server": "node server.js",
+        },
+        .
+        .
+        .
+    }
+
+
+    express服务器
+    server.js
+
+    const express = require('express');
+    const webpack = require('webpack');
+    const webpackDevMiddleware = require('webpack-dev-middleware');
+
+    const app = express();
+    const config = require('./webpack.config.js');
+    const compiler = webpack(config);
+
+    // Tell express to use the webpack-dev-middleware and use the webpack.config.js
+    // configuration file as a base.
+    app.use(webpackDevMiddleware(compiler, {
+        publicPath: config.output.publicPath
+    }));
+
+    // Serve the files on port 3000.
+    app.listen(3000, function () {
+        console.log('Example app listening on port 3000!\n');
+    });
+
+
